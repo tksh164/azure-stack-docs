@@ -12,9 +12,9 @@
     href: concepts-support.md
   - name: Architecture
     items:
-    - name: Baseline architecture for AKS on Azure Stack HCI
+    - name: Baseline architecture for AKS hybrid
       href: /azure/architecture/example-scenario/hybrid/aks-baseline
-    - name: Network architecture for AKS on Azure Stack HCI
+    - name: Network architecture for AKS hybrid
       href: /azure/architecture/example-scenario/hybrid/aks-network
 - name: System requirements
   href: system-requirements.md
@@ -41,7 +41,7 @@
           href: kubernetes-walkthrough-powershell.md
         - name: Use Windows Admin Center
           items:
-            - name: Set up AKS on Azure Stack HCI and Windows Server
+            - name: Set up AKS hybrid
               href: setup.md
             - name: Create a Kubernetes cluster
               href: create-kubernetes-cluster.md
@@ -277,8 +277,12 @@
     href: aks-hybrid-preview-azure-vm.md
   - name: How-to
     items:
-     - name: Install Azure Resource Bridge on Windows Server
-       href: deploy-arc-resource-bridge-windows-server.md
+     - name: Install AKS service
+       items:
+        - name: Install on Azure Stack HCI
+          href: deploy-aks-service-hci.md
+        - name: Install on Windows Server
+          href: deploy-arc-resource-bridge-windows-server.md
      - name: Configure networking for AKS hybrid clusters
        href: create-aks-hybrid-preview-networks.md
      - name: Provision AKS hybrid clusters from Azure
@@ -313,6 +317,8 @@
     items:
     - name: Set up machine
       href: aks-edge-howto-setup-machine.md
+    - name: Offline installation
+      href: aks-edge-howto-offline-install.md
     - name: Create single machine deployment
       href: aks-edge-howto-single-node-deployment.md
     - name: Create full deployment
@@ -337,6 +343,10 @@
       href: aks-edge-howto-update.md
     - name: Uninstall AKS Edge Essentials
       href: aks-edge-howto-uninstall.md
+    - name: Networking
+      items:
+      - name: Configure multiple NICs
+        href: aks-edge-howto-multi-nic.md
     - name: Storage
       items:
       - name: Add local storage binding
