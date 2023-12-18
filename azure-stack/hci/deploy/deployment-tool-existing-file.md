@@ -1,10 +1,10 @@
 ---
 title: Deploy Azure Stack HCI using an existing configuration file (preview) 
 description: Learn how to deploy Azure Stack HCI using an existing configuration file (preview).
-author: dansisson
+author: alkohli
 ms.topic: how-to
 ms.date: 11/17/2022
-ms.author: v-dansisson
+ms.author: alkohli
 ms.reviewer: alkohli
 ms.subservice: azure-stack-hci
 ---
@@ -70,7 +70,7 @@ You deploy single-node and multi-node clusters similarly using the interactive f
 
     1. Go back to the deployment screen and provide the Azure registration details.
 
-    1. From the dropdown, select the **Azure Active Directory ID** or the tenant ID.
+    1. From the dropdown, select the **Microsoft Entra ID** or the tenant ID.
 
     1. Select the associated subscription. This subscription is used to create the cluster resource, register it with Azure Arc and set up billing.
 

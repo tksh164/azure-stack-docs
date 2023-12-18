@@ -39,7 +39,7 @@ For more information about this role-based NIC qualification, please see this [l
 
 |Level|Management Role|Compute Role|Storage Role|
 |----|----|----|----|
-|Role-based distinction|Management|Compute Standard|Compute Storage|
+|Role-based distinction|Management|Compute Standard|Storage Standard|
 |Maximum Award|Not Applicable|Compute Premium|Storage Premium|
  
 > [!NOTE]
@@ -148,9 +148,9 @@ Guest RDMA enables SMB workloads for VMs to gain the same benefits of using RDMA
 
 For more information, download the document from the [SDN GitHub repo](https://github.com/Microsoft/SDN/blob/master/Diagnostics/S2D%20WS2016_ConvergedNIC_Configuration.docx).
 
-### SET
+### Switch Embedded Teaming (SET)
 
-SET is a software-based teaming technology that has been included in the Windows Server operating system since Windows Server 2016. SET requires a Compute (Standard) or Compute (Premium) adapter.
+SET is a software-based teaming technology that has been included in the Windows Server operating system since Windows Server 2016. SET is the only teaming technology supported by Azure Stack HCI. SET works well with compute, storage, and management traffic and is supported with up to eight adapters in the same team.
 
 **Applicable traffic types:** compute, storage, and management
 

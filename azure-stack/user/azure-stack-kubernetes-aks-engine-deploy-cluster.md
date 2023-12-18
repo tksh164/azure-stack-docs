@@ -30,7 +30,7 @@ You can find examples of the API model for your OS and AKS engine version number
 A URL to the API model may look like:
 
 ```http  
-https://raw.githubusercontent.com/Azure/aks-engine/master/examples/azure-stack/kubernetes-azurestack.json
+https://raw.githubusercontent.com/Azure/aks-engine-azurestack/master/examples/azure-stack/kubernetes-azurestack.json
 ```
 
 For each of the following samples replace `<URL for the API Model>` with the URL.
@@ -71,7 +71,7 @@ This section looks at creating an API model for your cluster.
     ```
 
     > [!NOTE]  
-    > If you're using Azure AD for your identity system, you don't need to add the **identitySystem** field.
+    > If you're using Microsoft Entra ID for your identity system, you don't need to add the **identitySystem** field.
 
 6.  In `masterProfile`, set the following fields:
 

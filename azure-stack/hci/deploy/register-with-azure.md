@@ -7,6 +7,7 @@ ms.reviewer: arduppal
 ms.topic: how-to
 ms.service: azure-stack
 ms.subservice: azure-stack-hci
+ms.custom: devx-track-azurepowershell
 ms.date: 05/11/2023
 ---
 
@@ -30,7 +31,7 @@ Before you begin cluster registration, make sure the following prerequisites are
 
 - **Azure Stack HCI system deployed and online.** Make sure the system is deployed and all servers are online.
 
-- **Network connectivity.** Azure Stack HCI needs to periodically connect to the Azure public cloud. For information on how to prepare your firewalls and set up a proxy server, see [Firewall requirements for Azure Stack HCI](../concepts/firewall-requirements.md).
+- **Network connectivity.** Azure Stack HCI needs to periodically connect to the Azure public cloud. For information on how to prepare your firewalls and set up a proxy server, see [Firewall requirements for Azure Stack HCI](../concepts/firewall-requirements.md) and [Configure proxy settings for Azure Stack HCI](../manage/configure-proxy-settings.md).
 
 - **Azure subscription and permissions.** Make sure you have an Azure subscription and you know the Azure region where the cluster resources should be created. For more information about Azure subscription and supported Azure regions, see [Azure requirements](../concepts/system-requirements.md#azure-requirements).
 
@@ -38,7 +39,7 @@ Before you begin cluster registration, make sure the following prerequisites are
 
 - **Windows Admin Center.** If you're using Windows Admin Center to register the cluster, make sure you:
 
-   - [Install Windows Admin Center](/windows-server/manage/windows-admin-center/deploy/install) on a management computer and [register Windows Admin Center with Azure](../manage/register-windows-admin-center.md). For registration, use the same Azure Active Directory (tenant) ID that you plan to use for the cluster registration. To get your Azure subscription ID, visit the Azure portal, navigate to **Subscriptions**, and copy/paste your ID from the list. To get your tenant ID, visit the Azure portal, navigate to **Azure Active Directory**, and copy/paste your tenant ID.
+   - [Install Windows Admin Center](/windows-server/manage/windows-admin-center/deploy/install) on a management computer and [register Windows Admin Center with Azure](../manage/register-windows-admin-center.md). For registration, use the same Microsoft Entra ID (tenant) ID that you plan to use for the cluster registration. To get your Azure subscription ID, visit the Azure portal, navigate to **Subscriptions**, and copy/paste your ID from the list. To get your tenant ID, visit the Azure portal, navigate to **Microsoft Entra ID**, and copy/paste your tenant ID.
 
    - To register your cluster in Azure China, install Windows Admin Center version 2103.2 or later.
 
@@ -178,7 +179,7 @@ Follow these steps to register Azure Stack HCI with Azure via PowerShell. If you
 
 1. Use the [Register-AzStackHCI](/powershell/module/az.stackhci/register-azstackhci) cmdlet, with the `subscriptionID`, `TenantID`, `ComputerName`, and `Region` parameters. The following example registers an HCI cluster to the East US region by connecting to one of the nodes of the cluster called `server1`, and automatically Arc-enables each node of the cluster.
 
-   To get your Azure subscription ID, visit the Azure portal, navigate to **Subscriptions**, and copy/paste your ID from the list. To get your tenant ID, visit the Azure portal, navigate to **Azure Active Directory**, and copy/paste your tenant ID:
+   To get your Azure subscription ID, visit the Azure portal, navigate to **Subscriptions**, and copy/paste your ID from the list. To get your tenant ID, visit the Azure portal, navigate to **Microsoft Entra ID**, and copy/paste your tenant ID:
 
    ```powershell
    Register-AzStackHCI  -SubscriptionId "<subscription_ID>" -ComputerName server1 -Region "eastus" -TenantId "<tenant_id>"  

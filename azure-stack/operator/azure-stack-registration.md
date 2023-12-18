@@ -29,7 +29,7 @@ The information in this article describes registering Azure Stack Hub integrated
 
 ::: zone pivot="state-connected"
    > [!Note]
-   > For connected registrations, an Azure Active Directory application and associated service principal is created in the Active Directory directory associated with the registration. This service principal is used for Azure Stack Hub Marketplace scenarios (to view and download Azure Marketplace items), uploading usage data (if Usage Reporting is enabled), diagnostic log collection, and remote support. Removing or changing this application or service principal results in these scenarios not working and alerts being raised. If it is deleted, then it can be re-created by [unregistering and then re-registering](azure-stack-registration.md#renew-or-change-registration) Azure Stack Hub with Azure.
+   > For connected registrations, a Microsoft Entra application and associated service principal is created in the Active Directory directory associated with the registration. This service principal is used for Azure Stack Hub Marketplace scenarios (to view and download Azure Marketplace items), uploading usage data (if Usage Reporting is enabled), diagnostic log collection, and remote support. Removing or changing this application or service principal results in these scenarios not working and alerts being raised. If it is deleted, then it can be re-created by [unregistering and then re-registering](azure-stack-registration.md#renew-or-change-registration) Azure Stack Hub with Azure.
 ::: zone-end
 
 ::: zone pivot="state-disconnected"
@@ -70,9 +70,9 @@ Before registering Azure Stack Hub with Azure, you must have:
 
 - Registered the Azure Stack Hub resource provider (see the following Register Azure Stack Hub Resource Provider section for details).
 
-After registration, Azure Active Directory (Azure AD) global administrator permission isn't required. However, some operations may require the global admin credential (for example, a resource provider installer script or a new feature requiring a permission to be granted). You can either temporarily reinstate the account's global admin permissions or use a separate global admin account that's an owner of the *default provider subscription*.
+After registration, Microsoft Entra Global Administrator permission isn't required. However, some operations may require the global admin credential (for example, a resource provider installer script or a new feature requiring a permission to be granted). You can either temporarily reinstate the account's global admin permissions or use a separate global admin account that's an owner of the *default provider subscription*.
 
-The user that registers Azure Stack Hub is the owner of the service principal in Azure AD. Only the user who registered Azure Stack Hub can modify the Azure Stack Hub registration. All other users, even if they're a global admin, must be added to 'Default Provider Subscription' through 'Access control (IAM)'. If a non-admin user that's not an owner of the registration service principal attempts to register or re-register Azure Stack Hub, they may come across a 403 response. A 403 response indicates the user has insufficient permissions to complete the operation.
+The user that registers Azure Stack Hub is the owner of the service principal in Microsoft Entra ID. Only the user who registered Azure Stack Hub can modify the Azure Stack Hub registration. All other users, even if they're a global admin, must be added to 'Default Provider Subscription' through 'Access control (IAM)'. If a non-admin user that's not an owner of the registration service principal attempts to register or re-register Azure Stack Hub, they may come across a 403 response. A 403 response indicates the user has insufficient permissions to complete the operation.
 
 If you don't have an Azure subscription that meets these requirements, you can [create a free Azure account here](https://azure.microsoft.com/free/?b=17.06). Registering Azure Stack Hub incurs no cost on your Azure subscription.
 
@@ -105,7 +105,7 @@ To ensure you're using the latest version, delete any existing versions of the A
 
 ### Determine your billing model
 ::: zone pivot="state-connected"
- A connected deployment allows Azure Stack Hub to connect to the internet, and to Azure. You can also use either Azure AD or Active Directory Federation Services (AD FS) as your identity store, and choose from two billing models: pay-as-you-use or capacity-based. You specify the billing model later, while running the registration script.
+ A connected deployment allows Azure Stack Hub to connect to the internet, and to Azure. You can also use either Microsoft Entra ID or Active Directory Federation Services (AD FS) as your identity store, and choose from two billing models: pay-as-you-use or capacity-based. You specify the billing model later, while running the registration script.
 ::: zone-end
 
 ::: zone pivot="state-disconnected"
@@ -709,15 +709,15 @@ You might see one of the errors below while attempting to register your Azure St
 
 - Cloud identifier [`GUID`] is already registered. Reusing cloud identifiers isn't allowed.
 
-   Cause: this happens if your Azure Stack environment is already registered. If you want to re-register your environment with a different subscription or billing model, follow the [Renew or change registration steps](#renew-or-change-registration).
+   Cause: This happens if your Azure Stack environment is already registered. If you want to re-register your environment with a different subscription or billing model, follow the [Renew or change registration steps](#renew-or-change-registration).
 
 - When trying to access Marketplace management, an error occurs when trying to syndicate products.
 
-   Cause: this usually happens when Azure Stack Hub is unable to access the registration resource. One common reason for this is that when an Azure subscription's directory tenant changes, it resets the registration. You can't access the Azure Stack Hub Marketplace or report usage if you've changed the subscription's directory tenant. You need to re-register to fix this issue.
+   Cause: This usually happens when Azure Stack Hub is unable to access the registration resource. One common reason for this is that when an Azure subscription's directory tenant changes, it resets the registration. You can't access the Azure Stack Hub Marketplace or report usage if you've changed the subscription's directory tenant. You need to re-register to fix this issue.
 ::: zone pivot="state-disconnected"
 - Marketplace management still asks you to register and activate your Azure Stack Hub, even when you've already registered your stamp using the disconnected process.
 
-   Cause: this is a known issue for disconnected environments, and requires you to [verify your registration status](#verify-azure-stack-hub-registration). In order to use Marketplace management, use [the offline tool](azure-stack-download-azure-marketplace-item.md?pivots=state-disconnected).
+   Cause: This is a known issue for disconnected environments, and requires you to [verify your registration status](#verify-azure-stack-hub-registration). In order to use Marketplace management, use [the offline tool](azure-stack-download-azure-marketplace-item.md?pivots=state-disconnected).
 ::: zone-end
 
 ## Next steps

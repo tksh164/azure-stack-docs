@@ -2,11 +2,11 @@
 title: Create an Azure Managed Lustre file system using Azure Resource Manager templates
 description: Use Azure Resource Manager templates with JSON or Bicep to create an Azure Managed Lustre file system. 
 ms.topic: overview
-author: sethmanheim
-ms.author: sethm 
+ms.date: 06/28/2023
+author: pauljewellmsft
+ms.author: pauljewell
 ms.lastreviewed: 02/21/2023
 ms.reviewer: mayabishop
-ms.date: 02/21/2023
 
 ---
 
@@ -14,16 +14,14 @@ ms.date: 02/21/2023
 
 You can automate Azure Managed Lustre file system creation by using Azure Resource Manager templates. This article explains the basic procedure and gives examples of the files you need.
 
-For more information about resource manager templates, see [Azure Resource Manager templates](/azure/azure-resource-manager/templates/).
+For more information about the templates, see [Azure Resource Manager templates](/azure/azure-resource-manager/templates/).
 
 This article gives examples of two different methods for creating Azure Resource Manager templates:
 
 * Use JSON to create Azure Resource Manager templates directly. See [JSON template syntax](/azure/azure-resource-manager/templates/syntax).
 * Use [Bicep](/azure/azure-resource-manager/bicep/overview?tabs=bicep), which uses simpler syntax to supply the information. When you deploy the template, the Bicep files are converted into Azure Resource Manager template files. See the [Bicep documentation](/azure/azure-resource-manager/bicep/).
 
-For help understanding your options, see [Comparing JSON and Bicep for templates](/azure/azure-resource-manager/bicep/compare-template-syntax).
-
-[!INCLUDE [public-preview-disclaimer](includes/managed-lustre-preview-disclaimer.md)]
+To learn more about your options, see [Comparing JSON and Bicep for templates](/azure/azure-resource-manager/bicep/compare-template-syntax).
 
 ## File system type and size options
 
@@ -33,20 +31,24 @@ When you use a template, specify a **SKU name** to define the basic type of Azur
 
 In Azure, the term *SKU* defines a set of features for the object being created. For an Azure Managed Lustre file system, the SKU sets system qualities such as the type of disks used, the amount of storage supported, and the maximum throughput capacity.
 
-As of late October 2022, two SKUs are supported:
+Currently, the following SKUs are supported:
 
+* AMLFS-Durable-Premium-40
 * AMLFS-Durable-Premium-125
 * AMLFS-Durable-Premium-250
+* AMLFS-Durable-Premium-500
+
+These SKUs create a file system that uses durable SSD storage, but they have different qualities for throughput and configurable storage size. This table explains the differences:
+
+| SKU | Throughput per TiB storage | Storage Min| Storage Max*| Increment|
+|----------|-----------|-----------|-----------|-----------|
+| AMLFS-Durable-Premium-40 | 40 MB/second | 48 TB | 768 TB | 48 TB|
+| AMLFS-Durable-Premium-125 | 125 MB/second | 16 TB | 128 TB | 16 TB |
+| AMLFS-Durable-Premium-250 | 250 MB/second | 8 TB | 128 TB | 8 TB |
+| AMLFS-Durable-Premium-500 | 500 MB/second | 4 TB | 128 TB | 4 TB |
 
 > [!NOTE]
-> The older SKU, AMLFS-Durable-Premium-200, is no longer supported.
-
-Both of these SKUs create a file system that uses durable SSD storage, but they have different qualities for throughput and configurable storage size. This table explains the differences:
-
-| SKU | Throughput per TiB storage | Storage size range|
-|----------|-----------|-----------|
-| AMLFS-Durable-Premium-125 | 125 MB/second | 16 - 128 TiB, in increments of 16 |
-| AMLFS-Durable-Premium-250 | 250 MB/second | 8 - 128 TiB, in increments of 8 |
+> If you are interested in storage values larger than the listed maximum, please [open a support ticket](https://ms.portal.azure.com/#view/Microsoft_Azure_Support/HelpAndSupportBlade/~/overview)
 
 You can use the Azure portal create workflow to double-check SKU capabilities. SKU-specific settings are in the **File System Details** section on the **Basics** tab.
 
@@ -76,7 +78,7 @@ Before you perform these steps, you should decide on the file system type and si
 
 1. Deploy the Azure Managed Lustre system by using the template. The syntax is different depending on whether you're using JSON or Bicep files, and the number of files you use.
 
-   You can deploy both Bicep and JSON templates as single files or multiple files. For more guidance and exact syntax for each option, see the [Azure Resource Manager templates documentation](/azure/azure-resource-manager/templates).
+   You can deploy both Bicep and JSON templates as single files or multiple files. For more information and to see the exact syntax for each option, see the [Azure Resource Manager templates documentation](/azure/azure-resource-manager/templates).
 
    Example JSON command:
 
@@ -117,7 +119,7 @@ This section explains the information you need to include in your Azure Resource
 
 * **SKU name** - The performance model for the file system, either `AMLFS-Durable-Premium-125` or `AMLFS-Durable-Premium-250`.
 
-  To find available SKUs (use the current API version):
+  Use the following command to find available SKUs (use the current API version):
 
   ```azurecli
   az rest --url https://management.azure.com/subscriptions/<subscription_id>/providers/Microsoft.StorageCache/skus/?api-version=<Version> | jq '.value[].name' | grep AMLFS| uniq
@@ -150,16 +152,14 @@ This section explains the information you need to include in your Azure Resource
 
 * **Storage capacity** - The size of your Azure Managed Lustre cluster, in TiB. Values depend on the SKU. For more information, see the [File system type and size options](#file-system-type-and-size-options) section.
 
-* **Maintenance period** (Not used in private preview) - Requires two values that set the maintenance period. These values define a 30-minute period weekly during which system updates can be done.
+* **Maintenance period** - Requires two values that set the maintenance period. These values define a 30-minute period weekly during which system updates can be done.
 
   * Day of the week (for example, `Sunday`)
   * Time of day (UTC) (for example, `22:00`)
 
-  During the private preview, maintenance might be done at any time.
-
 ## Optional information
 
-The parameters in this section are either optional, or required only if you are using specific features.
+The parameters in this section are either optional, or required only if you're using specific features.
 
 * **Tags** - Use this option if you want to set Azure resource metadata tags.
 
@@ -167,7 +167,7 @@ The parameters in this section are either optional, or required only if you are 
 
   * **Container** - The resource ID of the blob container to use for Lustre HSM.
   * **Logging container** - The resource ID of a different container to hold import and export logs.
-  * **Import prefix** (optional) - If this value is provided, only blobs beginning with the import prefix string are imported into the Azure Managed Lustre File System. If you don't provide it, the default value is `/` (all blobs in the container will be imported).
+  * **Import prefix** (optional) - If this value is provided, only blobs beginning with the import prefix string are imported into the Azure Managed Lustre File System. If you don't provide it, the default value is `/`, which specifies that all blobs in the container are imported.
 
 * **Customer-managed key settings** - Supply these values if you want to use an Azure Key Vault to control the encryption keys that are used to encrypt your data in the Azure Managed Lustre system. By default, data is encrypted using Microsoft-managed encryption keys.
 

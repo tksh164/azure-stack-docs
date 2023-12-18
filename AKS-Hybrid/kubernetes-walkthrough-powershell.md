@@ -113,14 +113,17 @@ To create the configuration settings for the AKS host, use the [Set-AksHciConfig
 Configure your deployment with the following command.
 
 ```powershell
-Set-AksHciConfig -imageDir c:\clusterstorage\volume1\Images -workingDir c:\ClusterStorage\Volume1\ImageStore -cloudConfigLocation c:\clusterstorage\volume1\Config -vnet $vnet -cloudservicecidr "172.16.10.10/16"
+$csvPath = 'C:\clusterstorage\volume01' # Specify your preferred CSV path
+Set-AksHciConfig -imageDir $csvPath\Images -workingDir $csvPath\ImageStore -cloudConfigLocation $csvPath\Config -vnet $vnet
 ```
 
 > [!NOTE]
 > The values given in this example command will need to be customized for your environment.
 
 ## Step 4: Log in to Azure and configure registration settings
-### Option 1: Using your Azure AD account if you have "Owner" permissions
+<a name='option-1-using-your-azure-ad-account-if-you-have-owner-permissions'></a>
+
+### Option 1: Using your Microsoft Entra account if you have "Owner" permissions
 
 Run the following [Set-AksHciRegistration](/azure-stack/aks-hci/reference/ps/set-akshciregistration) PowerShell command with your subscription and resource group name to log into Azure. You must have an Azure subscription, and an existing Azure resource group in the Australia East, East US, Southeast Asia, or West Europe Azure regions to proceed.
 

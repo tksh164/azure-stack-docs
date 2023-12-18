@@ -46,7 +46,6 @@ Commvault is a complete data management platform to store, protect, manage, and 
 
 - Application listing: [Microsoft Azure Stack](https://www.commvault.com/supported-technologies/microsoft/azurestack)
 - Application support: [Azure Stack HCI](https://documentation.commvault.com/11.21/essential/132799_microsoft_azure_stack_hci.html)
-- [Commvault Backup and Recovery Now Supports Microsoft Azure Stack HCI](https://www.commvault.com/blogs/commvault-backup-and-recovery-now-supports-microsoft-azure-stack-hci)
 
 To enhance your Azure Stack HCI deployment with intelligent data management, check out the [Solution Brief](https://bit.ly/2ONrZGv).
 
@@ -77,7 +76,7 @@ Veritas Backup Exec is an easy-to-use backup and recovery solution that helps pr
 - Application support: [Protect Azure Stack HCI with Backup Exec](https://www.veritas.com/support/en_US/article.100048860)
 - [Veritas Backup Exec support for Microsoft Azure](https://www.veritas.com/protection/backup-exec/azure)
 
-To simplify data protection on your Azure Stack HCI deployment, check out the [Solution Brief](https://www.veritas.com/BackupExecandAzureStackHCI).
+To simplify data protection on your Azure Stack HCI deployment, check out the [Solution Brief](https://www.veritas.com/form/whitepaper/backup-exec-for-azure-stack-hci).
 
 ## Next steps
 
