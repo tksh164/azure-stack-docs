@@ -3,14 +3,14 @@ title: Migrate to Azure Stack HCI on new hardware
 description: Learn how to migrate to Azure Stack HCI on new hardware 
 author: alkohli 
 ms.topic: how-to 
-ms.date: 10/20/2023 
+ms.date: 02/13/2024 
 ms.author: alkohli 
 ms.reviewer: alkohli 
 ---
 
 # Migrate to Azure Stack HCI on new hardware
 
-> Applies to: Azure Stack HCI, 22H2, and 21H2; Windows Server 2022, Windows Server 2019, Windows Server 2016, Windows Server 2012 R2, Windows Server 2008 R2
+> Applies to: Azure Stack HCI, versions 22H2, and 21H2; Windows Server 2022, Windows Server 2019, Windows Server 2016, Windows Server 2012 R2, Windows Server 2008 R2
 
 This topic describes how to migrate virtual machine (VM) files on Windows Server 2012 R2, Windows Server 2016, or Windows Server 2019 to new Azure Stack HCI server hardware using Windows PowerShell and Robocopy. Robocopy is a robust method for copying files from one server to another. It resumes if disconnected and continues to work from its last known state. Robocopy also supports multi-threaded file copy over Server Message Block (SMB). For more information, see [Robocopy](/windows-server/administration/windows-commands/robocopy).
 
@@ -23,7 +23,7 @@ To migrate to Azure Stack HCI using the same hardware, see [Migrate to Azure Sta
 
 The following diagram shows a Windows Server source cluster and an Azure Stack HCI destination cluster as an example. You can also migrate VMs on stand-alone servers as well.
 
-:::image type="content" source="media/migrate-new-hardware/migrate-cluster.png" alt-text="Migrate cluster to Azure Stack HCI" lightbox="media/migrate-new-hardware/migrate-cluster.png":::
+:::image type="content" source="media/migrate-cluster-new-hardware/migrate-cluster.png" alt-text="Migrate cluster to Azure Stack HCI" lightbox="media/migrate-cluster-new-hardware/migrate-cluster.png":::
 
 In terms of expected downtime, using a single NIC with a dual 40 GB RDMA East-West network between clusters, and Robocopy configured for 32 multithreads, you can realize transfer speeds of 1.9 TB per hour.
 
@@ -128,7 +128,7 @@ Use Windows Admin Center or Windows PowerShell to create the new cluster. For de
 
 ## Run the migration script
 
-The following PowerShell script `Robocopy_Remote_Server_.ps1` uses Robocopy to copy VM files and their dependent directories and metadata from the source to the destination cluster. This script has been modified from the original script on TechNet at: [Robocopy Files to Remote Server Using PowerShell and RoboCopy](https://gallery.technet.microsoft.com/scriptcenter/Robocoy-Files-to-Remote-bdfc5154).
+The following PowerShell script `Robocopy_Remote_Server_.ps1` uses Robocopy to copy VM files and their dependent directories and metadata from the source to the destination cluster. This script has been modified from the original script on TechNet at: [Robocopy Files to Remote Server Using PowerShell and RoboCopy](/windows-server/administration/windows-commands/robocopy).
 
 The script copies all VM VHD, VHDX, and VMCX files to your destination cluster for a given Cluster Shared Volume (CSV). One CSV is migrated at a time.
 

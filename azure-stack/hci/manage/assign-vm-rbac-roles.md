@@ -1,15 +1,15 @@
 ---
-title: Use builtin RBAC roles for Arc VM management on Azure Stack HCI (preview)
-description: Learn how to use RBAC builtin roles for Arc VM management on Azure Stack HCI.(preview)
+title: Use builtin RBAC roles for Arc VM management on Azure Stack HCI
+description: Learn how to use RBAC builtin roles for Arc VM management on Azure Stack HCI.
 author: alkohli
 ms.author: alkohli
 ms.topic: how-to
 ms.service: azure-stack
 ms.subservice: azure-stack-hci
-ms.date: 11/13/2023
+ms.date: 07/19/2024
 ---
 
-# Use Role-based Access Control to manage Azure Stack HCI Virtual Machines (preview)
+# Use Role-based Access Control to manage Azure Stack HCI Virtual Machines 
 
 [!INCLUDE [hci-applies-to-23h2](../../includes/hci-applies-to-23h2.md)]
 
@@ -24,27 +24,25 @@ You can use the builtin RBAC roles to control access to VMs and VM resources suc
 
 To control access to VMs and VM resources on your Azure Stack HCI, you can use the following RBAC roles: 
 
-- **Azure Stack HCI Administrator** - This role grants full access to your Azure Stack HCI cluster and its resources. An Azure Stack HCI administrator can register the cluster as well as assign Azure Stack HCI VM contributor and Azure Stack HCI VM reader roles to other users.
+- **Azure Stack HCI Administrator** - This role grants full access to your Azure Stack HCI cluster and its resources. An Azure Stack HCI administrator can register the cluster as well as assign Azure Stack HCI VM contributor and Azure Stack HCI VM reader roles to other users. They can also create cluster-shared resources such as logical networks, VM images, and storage paths. 
 - **Azure Stack HCI VM Contributor** - This role grants permissions to perform all VM actions such as start, stop, restart the VMs. An Azure Stack HCI VM Contributor can create and delete VMs, as well as the resources and extensions attached to VMs. An Azure Stack HCI VM Contributor can't register the cluster or assign roles to other users, nor create cluster-shared resources such as logical networks, VM images, and storage paths.
 - **Azure Stack HCI VM Reader** - This role grants permissions to only view the VMs. A VM reader can't perform any actions on the VMs or VM resources and extensions.
 
 Here's a table that describes the VM actions granted by each role for the VMs and the various VM resources. The VM resources are referred to resources required to create a VM and include virtual disks, network interfaces, VM images, logical networks, and storage paths:
 
 
-|Builtin role  |VMs  |VM resources  |
-|---------|---------|---------|
-|Azure Stack HCI Administrator     |Create, list, delete VMs<br><br> Start, stop, restart VMs         |Create, list, delete VM resources         |
-|Azure Stack HCI VM Contributor     |Create, list, delete VMs<br><br> Start, stop, restart VMs         |Create, list, delete all VM resources except logical networks, VM images, and storage paths         |
-|Azure Stack HCI VM Reader    |List all VMs         |List all VM resources         |
+| Builtin role | VMs | VM resources |
+|--|--|--|
+| Azure Stack HCI Administrator | Create, list, delete VMs<br><br> Start, stop, restart VMs | Create, list, delete all VM resources including logical networks, VM images, and storage paths |
+| Azure Stack HCI VM Contributor | Create, list, delete VMs<br><br> Start, stop, restart VMs | Create, list, delete all VM resources except logical networks, VM images, and storage paths |
+| Azure Stack HCI VM Reader | List all VMs | List all VM resources |
 
  
 ## Prerequisites
 
 Before you begin, make sure to complete the following prerequisites:
 
-1. Make sure that you have access to an Azure Stack HCI cluster that is deployed and registered. During the deployment, an Arc Resource Bridge and a custom location are also created.
-    
-    Go to the resource group in Azure. You can see the custom location and Azure Arc Resource Bridge created for the Azure Stack HCI cluster. Make a note of the subscription, resource group, and the custom location as you use these later in this scenario.
+1. Make sure that complete the [Azure Stack HCI cluster requirements](./azure-arc-vm-management-prerequisites.md).
 
 1. Make sure that you have access to Azure subscription as an Owner or User Access Administrator to assign roles to others.
 
@@ -52,7 +50,7 @@ Before you begin, make sure to complete the following prerequisites:
 
 You can assign RBAC roles to user via the Azure portal. Follow these steps to assign RBAC roles to users:
 
-1. In the Azure Portal, search for the scope to grant access to, for example, search for subscriptions, resource groups, or a specific resource. In this example, we use the subscription in which the Azure Stack HCI cluster is deployed.
+1. In the Azure portal, search for the scope to grant access to, for example, search for subscriptions, resource groups, or a specific resource. In this example, we use the subscription in which the Azure Stack HCI cluster is deployed.
 
 
 1. Go to your subscription and then go to **Access control (IAM) > Role assignments**. From the top command bar, select **+ Add** and then select **Add role assignment**.

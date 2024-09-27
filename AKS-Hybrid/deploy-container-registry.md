@@ -1,5 +1,5 @@
 ---
-title: Deploy from private container registry to on-premises Kubernetes using Azure Container Registry and AKS Arc (preview)
+title: Deploy from private container registry to on-premises Kubernetes using Azure Container Registry and AKS Arc
 description: Learn how to deploy container images from a private container registry using Azure Container Registry.
 ms.topic: how-to
 ms.date: 12/12/2023
@@ -11,6 +11,8 @@ ms.lastreviewed: 12/11/2023
 ---
 
 # Deploy from private container registry to on-premises Kubernetes using Azure Container Registry and AKS Arc
+
+[!INCLUDE [hci-applies-to-23h2](includes/hci-applies-to-23h2.md)]
 
 This article describes how to deploy container images from a private container registry using Azure Container Registry, which you can run in your own datacenter in AKS Arc deployments. You deploy to your on-premises Kubernetes cluster hosted by AKS. Azure Container Registry allows you to build, store, and manage container images and artifacts in a private registry for all types of container deployments.
 
@@ -155,14 +157,14 @@ Once you create the image pull secret, you can use it to create Kubernetes pods 
 apiVersion: v1
 kind: Pod
 metadata:
-name: poemfinder-app
-namespace: mydemoapps
+ name: poemfinder-app
+ namespace: mydemoapps
 spec:
-containers:
- - name: poemfinder-app
-   image: <REGISTRY_NAME>.azurecr.io/poemfinder-app:v1.0
-   imagePullPolicy: IfNotPresent
- - imagePullSecrets:
+ containers:
+  - name: poemfinder-app
+    image: <REGISTRY_NAME>.azurecr.io/poemfinder-app:v1.0
+    imagePullPolicy: IfNotPresent
+ imagePullSecrets:
    - name: acr-secret
 ```
 
@@ -179,4 +181,4 @@ To confirm that the pod was successfully created using the container image from 
 ## Next steps
 
 - [Review AKS on Azure Stack HCI 23H2 prerequisites](aks-hci-network-system-requirements.md)
-- [What's new in AKS on Azure Stack HCI](aks-preview-overview.md)
+- [What's new in AKS on Azure Stack HCI](/azure-stack/hci/whats-new)

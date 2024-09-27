@@ -3,14 +3,10 @@ title: Register Azure Stack Hub with Azure
 titleSuffix: Azure Stack Hub
 description: Learn how to register Azure Stack Hub integrated systems with Azure so you can download Azure Marketplace items and set up data reporting.
 author: sethmanheim
-
 ms.topic: how-to
-ms.date: 05/26/2021
+ms.date: 08/19/2024
 ms.author: sethm
-ms.reviewer: avishwan
-ms.lastreviewed: 11/19/2020
 ms.custom:
-  - contperf-fy21q4
   - devx-track-azurepowershell
 zone_pivot_groups: state-connected-disconnected
 
@@ -70,9 +66,7 @@ Before registering Azure Stack Hub with Azure, you must have:
 
 - Registered the Azure Stack Hub resource provider (see the following Register Azure Stack Hub Resource Provider section for details).
 
-After registration, Microsoft Entra Global Administrator permission isn't required. However, some operations may require the global admin credential (for example, a resource provider installer script or a new feature requiring a permission to be granted). You can either temporarily reinstate the account's global admin permissions or use a separate global admin account that's an owner of the *default provider subscription*.
-
-The user that registers Azure Stack Hub is the owner of the service principal in Microsoft Entra ID. Only the user who registered Azure Stack Hub can modify the Azure Stack Hub registration. All other users, even if they're a global admin, must be added to 'Default Provider Subscription' through 'Access control (IAM)'. If a non-admin user that's not an owner of the registration service principal attempts to register or re-register Azure Stack Hub, they may come across a 403 response. A 403 response indicates the user has insufficient permissions to complete the operation.
+The user that registers Azure Stack Hub is the owner of the service principal in Microsoft Entra ID. Only the user who registered Azure Stack Hub can modify the Azure Stack Hub registration. All other users must be added to 'Default Provider Subscription' through 'Access control (IAM)'. If a non-admin user that's not an owner of the registration service principal attempts to register or re-register Azure Stack Hub, they may come across a 403 response. A 403 response indicates the user has insufficient permissions to complete the operation.
 
 If you don't have an Azure subscription that meets these requirements, you can [create a free Azure account here](https://azure.microsoft.com/free/?b=17.06). Registering Azure Stack Hub incurs no cost on your Azure subscription.
 
@@ -446,6 +440,7 @@ Return to the Azure Stack Hub environment with the file or text from the activat
   ```powershell
   # Open the file that contains the activation key (from Azure), copy the entire contents into your clipboard, then within your PowerShell session (that will communicate with the PEP), paste the activation key contents into a string variable, enclosed by quotation marks: 
   $ActivationKey = "<paste activation key here>"
+  $YourPrivilegedEndpoint = "<privileged_endpoint_computer_name>"
   New-AzsActivationResource -PrivilegedEndpointCredential $YourCloudAdminCredential -PrivilegedEndpoint $YourPrivilegedEndpoint -ActivationKey $ActivationKey
   ```
 
@@ -453,6 +448,7 @@ Optionally, you can use the Get-Content cmdlet to point to a file that contains 
 
   ```powershell
   $ActivationKey = Get-Content -Path '<Path>\<Activation Key File>'
+  $YourPrivilegedEndpoint = "<privileged_endpoint_computer_name>"
   New-AzsActivationResource -PrivilegedEndpointCredential $YourCloudAdminCredential -PrivilegedEndpoint $YourPrivilegedEndpoint -ActivationKey $ActivationKey
   ```
 ::: zone-end
@@ -511,6 +507,7 @@ If you want to change the subscription you use, you must first run the **Remove-
 ```powershell
 # select the subscription used during the registration (shown in portal)
 Select-AzSubscription -Subscription '<Registration subscription ID from portal>'
+$YourPrivilegedEndpoint = "<privileged_endpoint_computer_name>"
 # unregister using the parameter values from portal
 Remove-AzsRegistration -PrivilegedEndpointCredential $YourCloudAdminCredential -PrivilegedEndpoint $YourPrivilegedEndpoint -RegistrationName '<Registration name from portal>' -ResourceGroupName '<Registration resource group from portal>'
 # switch to new subscription id
@@ -524,6 +521,7 @@ Set-AzsRegistration -PrivilegedEndpointCredential $YourCloudAdminCredential -Pri
 ```powershell
 # select the subscription used during the registration (shown in portal)
 Select-AzureRMSubscription -Subscription '<Registration subscription ID from portal>'
+$YourPrivilegedEndpoint = "<privileged_endpoint_computer_name>"
 # unregister using the parameter values from portal
 Remove-AzsRegistration -PrivilegedEndpointCredential $YourCloudAdminCredential -PrivilegedEndpoint $YourPrivilegedEndpoint -RegistrationName '<Registration name from portal>' -ResourceGroupName '<Registration resource group from portal>'
 # switch to new subscription id
@@ -543,6 +541,7 @@ This section applies if you want to change the billing model, how features are o
 ```powershell
 # select the subscription used during the registration
 Select-AzSubscription -Subscription '<Registration subscription ID from portal>'
+$YourPrivilegedEndpoint = "<privileged_endpoint_computer_name>"
 # rerun registration with new BillingModel (or same billing model in case of re-registration) but using other parameters values from portal
 Set-AzsRegistration -PrivilegedEndpointCredential $YourCloudAdminCredential -PrivilegedEndpoint $YourPrivilegedEndpoint -BillingModel '<New billing model>' -RegistrationName '<Registration name from portal>' -ResourceGroupName '<Registration resource group from portal>'
 ```
@@ -552,6 +551,7 @@ Set-AzsRegistration -PrivilegedEndpointCredential $YourCloudAdminCredential -Pri
 ```powershell
 # select the subscription used during the registration
 Select-AzureRMSubscription -Subscription '<Registration subscription ID from portal>'
+$YourPrivilegedEndpoint = "<privileged_endpoint_computer_name>"
 # rerun registration with new BillingModel (or same billing model in case of re-registration) but using other parameters values from portal
 Set-AzsRegistration -PrivilegedEndpointCredential $YourCloudAdminCredential -PrivilegedEndpoint $YourPrivilegedEndpoint -BillingModel '<New billing model>' -RegistrationName '<Registration name from portal>' -ResourceGroupName '<Registration resource group from portal>'
 ```
@@ -574,6 +574,7 @@ You first need to remove the activation resource from Azure Stack Hub, and then 
 To remove the activation resource in Azure Stack Hub, run the following PowerShell cmdlets in your Azure Stack Hub environment:
 
   ```powershell
+  $YourPrivilegedEndpoint = "<privileged_endpoint_computer_name>"
   Remove-AzsActivationResource -PrivilegedEndpointCredential $YourCloudAdminCredential -PrivilegedEndpoint $YourPrivilegedEndpoint
   ```
 
@@ -626,6 +627,7 @@ Run the following PowerShell cmdlets:
 1. To change the registration token, run the following PowerShell cmdlets:
 
    ```powershell
+   $YourPrivilegedEndpoint = "<privileged_endpoint_computer_name>"
    $FilePathForRegistrationToken = $env:SystemDrive\RegistrationToken.txt
    $RegistrationToken = Get-AzsRegistrationToken -PrivilegedEndpointCredential $YourCloudAdminCredential -UsageReportingEnabled:$false -PrivilegedEndpoint $YourPrivilegedEndpoint -BillingModel Capacity -AgreementNumber '<EA agreement number>' -TokenOutputFilePath $FilePathForRegistrationToken
    ```
@@ -653,7 +655,7 @@ You can use **Set-AzsRegistration** to register Azure Stack Hub with Azure and e
 
 To run the cmdlet, you need:
 
-- A global Azure subscription of any type.
+- An Azure subscription of any type.
 - To be signed in to Azure PowerShell with an account that's an owner or contributor to that subscription.
 
 ```powershell

@@ -1,36 +1,35 @@
 ---
-title: What is Azure Arc VM management? (preview)
-description: Learn about Azure Arc VM managements to provision and manage on-premises Windows and Linux virtual machines (VMs) running on Azure Stack HCI clusters (preview).
+title: What is Azure Arc VM management for Azure Stack HCI
+description: Learn about Azure Arc VM managements to provision and manage on-premises Windows and Linux virtual machines (VMs) running on Azure Stack HCI clusters.
 author: alkohli
 ms.author: alkohli
 ms.topic: how-to
 ms.service: azure-stack
 ms.subservice: azure-stack-hci
-ms.date: 11/20/2023
+ms.custom: linux-related-content
+ms.date: 02/01/2024
 ---
 
-# What is Azure Arc VM management? (preview)
+# What is Azure Arc VM management?
 
 [!INCLUDE [hci-applies-to-23h2](../../includes/hci-applies-to-23h2.md)]
 
-This article provides a brief overview of the Azure Arc VM management feature on Azure Stack HCI including the benefits, its components, and the high-level workflow.  
-
-[!INCLUDE [hci-preview](../../includes/hci-preview.md)]
+This article provides a brief overview of the Azure Arc VM management feature on Azure Stack HCI including the benefits, its components, and high-level workflow.  
 
 ## About Azure Arc VM management
- 
+
 Azure Arc VM management lets you provision and manage Windows and Linux VMs hosted in an on-premises Azure Stack HCI environment. This feature enables IT admins create, modify, delete, and assign permissions and roles to app owners thereby enabling self-service VM management.
 
-Administrators can manage Arc VMs on their Azure Stack HCI clusters by using Azure management tools, including Azure portal, Azure CLI, Azure PowerShell, and Azure Resource Manager (ARM) templates. Using [Azure Resource Manager](/azure/azure-resource-manager/management/overview) templates, you can also automate VM provisioning in a secure cloud environment.
+Administrators can manage Arc VMs on their Azure Stack HCI clusters by using Azure management tools, including Azure portal, Azure CLI, Azure PowerShell, and Azure Resource Manager templates. Using [Azure Resource Manager](/azure/azure-resource-manager/management/overview) templates, you can also automate VM provisioning in a secure cloud environment.
 
-To find answers to frequently asked questions about Arc VM management on Azure Stack HCI, see the[FAQ](./azure-arc-vms-faq.yml).
+To find answers to frequently asked questions about Arc VM management on Azure Stack HCI, see the [FAQ](./azure-arc-vms-faq.yml).
 
 ## Benefits of Azure Arc VM management
 
 While Hyper-V provides capabilities to manage your on-premises VMs, Azure Arc VMs offer many benefits over traditional on-premises tools including:
 
 - Role-based access control via builtin Azure Stack HCI roles ensures that only authorized users can perform VM management operations thereby enhancing security. For more information, see [Azure Stack HCI Arc VM management roles](./assign-vm-rbac-roles.md).
-- Arc VM management provides the ability to deploy with ARM templates, Bicep, and Terraform.
+- Arc VM management provides the ability to deploy with Resource Manager templates, Bicep, and Terraform.
 - The Azure portal acts as a single pane of glass to manage VMs on Azure Stack HCI clusters and Azure VMs. With Azure Arc VM management, you can perform various operations from the Azure portal or Azure CLI including:
 
   - Create, manage, update, and delete VMs. For more information, see [Create Arc VMs](./create-arc-virtual-machines.md)
@@ -43,13 +42,13 @@ While Hyper-V provides capabilities to manage your on-premises VMs, Azure Arc VM
 
 Arc VM Management comprises several components including the Arc Resource Bridge, Custom Location, and the Kubernetes Extension for the VM operator.
 
-- **Arc Resource Bridge**: This lightweight Kubernetes VM connects your on-premises Azure Stack HCI cluster to the Azure Cloud. The Arc Resource Bridge is created automatically when you deploy the Azure Stack HCI cluster. During the deployment, you specify an IP pool from which 3 IP addresses are used for the Arc Resource Bridge. 
+- **Arc Resource Bridge**: This lightweight Kubernetes VM connects your on-premises Azure Stack HCI cluster to the Azure Cloud. The Arc Resource Bridge is created automatically when you deploy the Azure Stack HCI cluster.
 
     For more information, see the [Arc Resource Bridge overview](/azure/azure-arc/resource-bridge/overview).
 
 - **Custom Location**: Just like the Arc Resource Bridge, a custom location is created automatically when you deploy your Azure Stack HCI cluster. You can use this custom location to deploy Azure services. You can also deploy VMs in these user-defined custom locations, integrating your on-premises setup more closely with Azure.
 
-- **Kubernetes Extension for VM Operator**: Functioning as the on-premises counterpart of the Azure Resource Manager resource provider, this extension is an important component. It imbues your system with all the advanced capabilities of Azure Arc VM Management, ensuring you harness the full potential of Azure's features right on your local infrastructure.
+- **Kubernetes Extension for VM Operator**: The VM operator is the on-premises counterpart of the Azure Resource Manager resource provider. It is a Kubernetes controller that uses custom resources to manage your VMs.
 
 By integrating these components, Azure Arc offers a unified and efficient VM management solution, seamlessly bridging the gap between on-premises and cloud infrastructures.
 

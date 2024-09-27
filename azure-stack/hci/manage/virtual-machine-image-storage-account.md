@@ -1,6 +1,6 @@
 ---
-title: Create Azure Stack HCI VM from images in Azure Storage account (preview)
-description: Learn how to create Azure Stack HCI VM images using source images from Azure Storage account via Azure portal and Azure CLI (preview).
+title: Create Azure Stack HCI VM from images in Azure Storage account
+description: Learn how to create Azure Stack HCI VM images using source images from Azure Storage account via Azure portal and Azure CLI.
 author: alkohli
 ms.author: alkohli
 ms.topic: how-to
@@ -8,16 +8,15 @@ ms.service: azure-stack
 ms.subservice: azure-stack-hci
 ms.custom:
   - devx-track-azurecli
-ms.date: 11/20/2023
+ms.date: 03/01/2024
 ---
 
-# Create Azure Stack HCI VM image using image in Azure Storage account (preview)
+# Create Azure Stack HCI VM image using image in Azure Storage account
 
 [!INCLUDE [hci-applies-to-22h2-21h2](../../includes/hci-applies-to-23h2.md)]
 
 This article describes how to create virtual machine (VM) images for your Azure Stack HCI using source images from Azure Storage account. You can create VM images using the Azure portal or Azure CLI and then use these VM images to create Arc VMs on your Azure Stack HCI.
 
-[!INCLUDE [hci-preview](../../includes/hci-preview.md)]
 
 ## Prerequisites
 
@@ -38,7 +37,6 @@ Before you begin, make sure that the following prerequisites are completed.
 [!INCLUDE [hci-vm-image-prerequisites-storage-account](../../includes/hci-vm-image-prerequisites-storage-account.md)]
 
 ---
-
 
 ## Add VM image from Azure Storage account
 
@@ -157,13 +155,13 @@ PS C:\Users\azcli>
 
 # [Azure portal](#tab/azureportal)
 
-Follow these steps to create a VM image using the Azure portal. In the [Azure preview portal](https://aka.ms/edgevmmgmt) of your Azure Stack HCI cluster resource, take the following steps:
+Follow these steps to create a VM image using the Azure portal. In the Azure portal of your Azure Stack HCI cluster resource, take the following steps:
 
 1. Go to **Resources** > **VM images**.
 
 1. Select **+ Add VM Image** and from the dropdown list, select **Add VM image from Azure Storage Account**.
 
-   :::image type="content" source="./media/manage-vm-resources/add-image-from-azure-storage-account.png" alt-text="Screenshot showing Add VM image from Azure Marketplace option." lightbox="./media/manage-vm-resources/add-image-from-azure-storage-account.png":::
+   :::image type="content" source="./media/virtual-machine-image-storage-account/add-image-from-azure-storage-account.png" alt-text="Screenshot showing Add VM image from Azure Marketplace option." lightbox="./media/virtual-machine-image-storage-account/add-image-from-azure-storage-account.png":::
 
 1. In the **Create an image** page, on the **Basics** tab, input the following information:
 
@@ -185,19 +183,19 @@ Follow these steps to create a VM image using the Azure portal. In the [Azure pr
 
     1. **Storage blob.** Specify the Azure Storage account path for the source image on your HCI cluster.
 
-    1. **Storage path.** Select the storage path for your VM image.
+    1. **Storage path.** Select the storage path for your VM image. Select **Choose automatically** to have a storage path with high availability automatically selected. Select **Choose manually** to specify a storage path to store VM images and configuration files on the Azure Stack HCI cluster. In this case, ensure that the specified storage path has sufficient storage space.
 
 1. Select **Review + Create** to create your VM image.
 
-   :::image type="content" source="./media/manage-vm-resources/create-an-image-storage-account-review-create.png" alt-text="Screenshot of the Create an Image page highlighting the Review + Create button." lightbox="./media/manage-vm-resources/create-an-image-storage-account-create.png":::
+   :::image type="content" source="./media/virtual-machine-image-storage-account/create-an-image-storage-account-review-create.png" alt-text="Screenshot of the Create an Image page highlighting the Review + Create button." lightbox="./media/virtual-machine-image-storage-account/create-an-image-storage-account-review-create.png":::
 
 1. The input parameters are validated. If the validations succeed, you can review the VM image details and select **Create**.
         
-   :::image type="content" source="./media/manage-vm-resources/create-an-image-create.png" alt-text="Screenshot of the Create an Image page highlighting the Create button." lightbox="./media/manage-vm-resources/create-an-image-create.png":::
+   :::image type="content" source="./media/virtual-machine-image-storage-account/create-an-image-create.png" alt-text="Screenshot of the Create an Image page highlighting the Create button." lightbox="./media/virtual-machine-image-storage-account/create-an-image-create.png":::
     
 1. An Azure Resource Manager template deployment job starts for the VM image. The image deployment takes a few minutes to complete. The time taken to download the image depends on the size of the Marketplace image and the network bandwidth available for the download.
 
-   :::image type="content" source="./media/manage-vm-resources/deployment-in-progress.png" alt-text="Screenshot showing deployment is in progress." lightbox="./media/manage-vm-resources/deployment-in-progress.png":::
+   :::image type="content" source="./media/virtual-machine-image-storage-account/deployment-in-progress.png" alt-text="Screenshot showing deployment is in progress." lightbox="./media/virtual-machine-image-storage-account/deployment-in-progress.png":::
 
    You can track the image deployment on the VM image grid. You can see the list of the VM images that are already downloaded and the ones that are being downloaded on the cluster.
 
@@ -205,11 +203,11 @@ Follow these steps to create a VM image using the Azure portal. In the [Azure pr
 
 1. When the image download is complete, the VM image shows up in the list of images, and the **Status** shows as **Available**.
 
-   :::image type="content" source="./media/manage-vm-resources/added-vm-image.png" alt-text="Screenshot showing the newly added VM image in the list of images." lightbox="./media/manage-vm-resources/added-vm-image.png":::
+   :::image type="content" source="./media/virtual-machine-image-storage-account/added-vm-image.png" alt-text="Screenshot showing the newly added VM image in the list of images." lightbox="./media/virtual-machine-image-storage-account/added-vm-image.png":::
 
    If the download of the VM image fails, the error details are shown in the portal blade.
 
-   :::image type="content" source="./media/manage-vm-resources/failed-deployment.png" alt-text="Screenshot showing an error when the download of VM image fails." lightbox="./media/manage-vm-resources/failed-deployment.png":::
+   :::image type="content" source="./media/virtual-machine-image-storage-account/failed-deployment.png" alt-text="Screenshot showing an error when the download of VM image fails." lightbox="./media/virtual-machine-image-storage-account/failed-deployment.png":::
 
 ---
 

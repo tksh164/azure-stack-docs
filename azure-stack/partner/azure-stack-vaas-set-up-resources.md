@@ -50,7 +50,7 @@ Create a tenant that your organization will use to access VaaS services. Use a d
 
 This process authorizes your tenant with the **Azure Stack Hub Validation Service** Microsoft Entra application.
 
-1. Send the following information about the tenant to Microsoft at [vaashelp@microsoft.com](mailto:vaashelp@microsoft.com).
+1. Send the following information about the tenant to Microsoft:
 
     | Data | Description |
     |--------------------------------|---------------------------------------------------------------------------------------------|
@@ -66,7 +66,7 @@ There are two applications that require admin consents to function properly, one
 
 For portal application consent:
 
-1. Use the global admin credentials for the tenant to sign into the [Azure Stack Hub Validation portal](https://azurestackvalidation.com/).
+1. Use the service admin credentials for the tenant to sign into the [Azure Stack Hub Validation portal](https://azurestackvalidation.com/).
 
 2. Select **My Account**.
 

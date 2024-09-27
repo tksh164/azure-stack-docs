@@ -1,19 +1,15 @@
 ---
-title: Connect Storage Explorer to Azure Stack Hub subscription or storage account 
+title: Connect Storage Explorer to Azure Stack Hub subscription or storage account
 description: Learn how to connect Storage Explorer to an  Azure Stack Hub subscription
 author: sethmanheim
-
 ms.topic: conceptual
 ms.date: 6/23/2021
 ms.author: sethm
 ms.reviewer: xiaofmao
 ms.lastreviewed: 11/11/2019
-custom: contperf-fy21q4
-
 
 # Intent: As an Azure Stack user, I want to manage my Azure Stack Storage so that my apps can access data.
 # Keyword: Azure Stack storage explorer
-
 ---
 
 # Connect Storage Explorer to an Azure Stack Hub subscription or a storage account
@@ -52,8 +48,6 @@ Export and then import Azure Stack Hub certificate for disconnected integrated s
 3. Select **Computer account**, and then select **Next**. Select **Local computer**, and then select **Finish**.
 
 4.  Under **Console Root\Certificated (Local Computer)\Trusted Root Certification Authorities\Certificates** find **AzureStackSelfSignedRootCert**.
-
-    ![Load the Azure Stack Hub root certificate through mmc.exe](./media/azure-stack-storage-connect-se/add-certificate-azure-stack.png)
 
 5. Right-click the certificate, select **All Tasks** > **Export**, and then follow the instructions to export the certificate with **Base-64 encoded X.509 (.CER)**.
 
